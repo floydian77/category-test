@@ -24,13 +24,6 @@ $factory->define(Product::class, function (Faker $faker) {
 });
 
 $factory->afterCreating(Product::class, function ($product, $faker) {
-    factory(Category::class, 3)->create([
-        'product_id' => $product->id
-    ])
-        ->each(function ($category) use ($product) {
-            factory(Category::class, 5)->create([
-                'parent_id' => $category->id,
-                'product_id' => $product->id,
-            ]);
-        });
+    $categoryIds = Category::where('parent_id', null)->pluck('id');
+    $product->categories()->attach($categoryIds);
 });
