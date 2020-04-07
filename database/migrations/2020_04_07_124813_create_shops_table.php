@@ -18,6 +18,13 @@ class CreateShopsTable extends Migration
             $table->string('name');
             $table->timestamps();
         });
+
+        Schema::create('category_shop', function (Blueprint $table) {
+            $table->id();
+            $table->integer('category_id');
+            $table->integer('shop_id');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -27,6 +34,7 @@ class CreateShopsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('category_shop');
         Schema::dropIfExists('shops');
     }
 }

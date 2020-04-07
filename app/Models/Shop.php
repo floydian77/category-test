@@ -9,4 +9,9 @@ class Shop extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
 }

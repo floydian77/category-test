@@ -2,6 +2,8 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+use App\Models\Category;
+use App\Models\Product;
 use App\Models\Shop;
 use Faker\Generator as Faker;
 
@@ -20,4 +22,14 @@ $factory->define(Shop::class, function (Faker $faker) {
     return [
         'name' => $faker->word
     ];
+});
+
+$factory->afterCreating(Shop::class, function ($shop, $faker) {
+    factory(Category::class, 3)
+        ->create()
+        ->each(function($category) use ($shop) {
+            $shop->categories()->attach($category);
+        });
+
+    factory(Product::class, 5)->create();
 });
