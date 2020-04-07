@@ -24,6 +24,11 @@ $factory->define(Product::class, function (Faker $faker) {
 });
 
 $factory->afterCreating(Product::class, function ($product, $faker) {
-    $categoryIds = Category::where('parent_id', null)->pluck('id');
-    $product->categories()->attach($categoryIds);
+    $categories = Category::all();
+    foreach ($categories as $category) {
+        $entryIds = $category->entries()->pluck('id');
+        $entryIds = array_rand($entryIds->toArray(), rand(1, 4));
+
+        $product->entries()->attach($entryIds);
+    }
 });
