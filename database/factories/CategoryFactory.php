@@ -23,9 +23,7 @@ $factory->define(Category::class, function (Faker $faker) {
 });
 
 $factory->afterCreating(Category::class, function ($category, $faker) {
-    if ($category->parent_id == null) return;
-
-    factory(Entry::class)->create([
+    factory(Entry::class, 5)->create([
         'category_id' => $category->id
     ]);
 });

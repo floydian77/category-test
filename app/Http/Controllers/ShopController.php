@@ -13,7 +13,8 @@ class ShopController extends Controller
     public function index()
     {
         $shops = Shop::with([
-            'categories'
+            'categories',
+            'categories.entries'
         ])->get();
 
         return response($shops->jsonSerialize(), Response::HTTP_OK);
