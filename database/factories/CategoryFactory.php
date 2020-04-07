@@ -3,7 +3,6 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Models\Category;
-use App\Models\Product;
 use Faker\Generator as Faker;
 
 /*
@@ -17,14 +16,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(Product::class, function (Faker $faker) {
+$factory->define(Category::class, function (Faker $faker) {
     return [
-        'name' => $faker->word,
     ];
-});
-
-$factory->afterCreating(Product::class, function ($product, $faker) {
-    factory(Category::class)->create([
-        'product_id' => $product->id
-    ]);
 });
