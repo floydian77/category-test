@@ -2,7 +2,6 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\Category;
 use App\Models\Entry;
 use Faker\Generator as Faker;
 
@@ -17,15 +16,8 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(Category::class, function (Faker $faker) {
+$factory->define(Entry::class, function (Faker $faker) {
     return [
+        'value' => $faker->word
     ];
-});
-
-$factory->afterCreating(Category::class, function ($category, $faker) {
-    if ($category->parent_id == null) return;
-
-    factory(Entry::class)->create([
-        'category_id' => $category->id
-    ]);
 });

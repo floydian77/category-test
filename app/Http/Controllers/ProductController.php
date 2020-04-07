@@ -15,7 +15,8 @@ class ProductController extends Controller
             'categories' => function ($query) {
                 $query->where('parent_id', null);
             },
-            'categories.childs'
+            'categories.childs',
+            'categories.childs.entry'
         ])->get();
 
         return response($products->jsonSerialize(), Response::HTTP_OK);
