@@ -11,7 +11,12 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('categories')->get();
+        $products = Product::with([
+            'categories' => function ($query) {
+                $query->where('parent_id', null);
+            },
+            'categories.childs'
+        ])->get();
 
         return response($products->jsonSerialize(), Response::HTTP_OK);
     }
