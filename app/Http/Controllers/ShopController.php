@@ -4,9 +4,8 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\Product;
+use App\Http\Resources\Shops;
 use App\Models\Shop;
-use Illuminate\Http\Response;
 
 class ShopController extends Controller
 {
@@ -17,6 +16,6 @@ class ShopController extends Controller
             'categories.entries'
         ])->get();
 
-        return response($shops->jsonSerialize(), Response::HTTP_OK);
+        return new Shops($shops);
     }
 }
