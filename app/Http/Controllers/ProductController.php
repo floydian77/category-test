@@ -14,6 +14,7 @@ class ProductController extends Controller
         $products = Product::with([
             'categories',
             'categories.category',
+            'categories.entries',
         ])->get();
 
         return response($products->jsonSerialize(), Response::HTTP_OK);

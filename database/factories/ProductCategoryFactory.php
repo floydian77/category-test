@@ -20,3 +20,9 @@ $factory->define(ProductCategory::class, function (Faker $faker) {
     return [
     ];
 });
+
+$factory->afterCreating(ProductCategory::class, function ($productCategory, $faker) {
+    $entries = $productCategory->category->entries;
+    $entries = $entries->random(rand(1, count($entries)));
+    $productCategory->entries()->attach($entries);
+});
