@@ -4,6 +4,7 @@
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use Faker\Generator as Faker;
 
 /*
@@ -25,10 +26,12 @@ $factory->define(Product::class, function (Faker $faker) {
 
 $factory->afterCreating(Product::class, function ($product, $faker) {
     $categories = Category::all();
-    foreach ($categories as $category) {
-        $entryIds = $category->entries()->pluck('id');
-        $entryIds = array_rand($entryIds->toArray(), rand(1, 4));
+    $categories = $categories->random(rand(1, count($categories)));
 
-        $product->entries()->attach($entryIds);
+    foreach ($categories as $category) {
+        factory(ProductCategory::class)->create([
+            'product_id' => $product->id,
+            'category_id' => $category->id
+        ]);
     }
 });

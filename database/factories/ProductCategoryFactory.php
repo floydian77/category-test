@@ -2,9 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\Category;
-use App\Models\Product;
-use App\Models\Shop;
+use App\Models\ProductCategory;
 use Faker\Generator as Faker;
 
 /*
@@ -18,18 +16,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(Shop::class, function (Faker $faker) {
+$factory->define(ProductCategory::class, function (Faker $faker) {
     return [
-        'name' => $faker->word
     ];
-});
-
-$factory->afterCreating(Shop::class, function ($shop, $faker) {
-    factory(Category::class, 5)
-        ->create()
-        ->each(function($category) use ($shop) {
-            $shop->categories()->attach($category);
-        });
-
-    factory(Product::class, 5)->create();
 });
