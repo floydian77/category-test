@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Product;
-use Illuminate\Http\Response;
+use App\Http\Resources\Products;
 
 class ProductController extends Controller
 {
@@ -17,6 +17,6 @@ class ProductController extends Controller
             'categories.entries',
         ])->get();
 
-        return response($products->jsonSerialize(), Response::HTTP_OK);
+        return new Products($products);
     }
 }
